@@ -5,6 +5,7 @@ import auth from "@ice/plugin-auth";
 
 // The project config, see https://v3.ice.work/docs/guide/basic/config
 export default defineConfig(() => ({
+  publicPath: './',
   ssr: false,
   ssg: false,
   hash: "contenthash",
