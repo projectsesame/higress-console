@@ -12,13 +12,13 @@
 	<artifactId>higress-console</artifactId>
 	<name>higress-console</name>
 	<description>Console Project for Higress</description>
-
 	<properties>
 		<nodejs.version>16.19.0</nodejs.version>
 		<springdoc-openapi-maven-plugin.version>1.4</springdoc-openapi-maven-plugin.version>
 
 		<app.build.version>2.1.0</app.build.version>
 		<app.build.dev>true</app.build.dev>
+		<app.public.path>./</app.public.path>
 	</properties>
 
 	<dependencies>
@@ -125,14 +125,16 @@
 						<configuration>
 							<arguments>browserslist@latest --update-db</arguments>
 						</configuration>
-					</execution>
-					<execution>
+					</execution>					<execution>
 						<id>npm build</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
 							<arguments>run build</arguments>
+							<environmentVariables>
+								<PUBLIC_PATH>${app.public.path}</PUBLIC_PATH>
+							</environmentVariables>
 						</configuration>
 					</execution>
 				</executions>

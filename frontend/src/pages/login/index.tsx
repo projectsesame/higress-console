@@ -6,8 +6,8 @@ import { login } from '@/services';
 import store from '@/store';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
-import { Alert, message } from 'antd';
-import { history, useAuth, useNavigate } from 'ice';
+import { message } from 'antd';
+import { history, useAuth, useNavigate, useSearchParams } from 'ice';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './index.module.css';
@@ -20,6 +20,8 @@ const Login: React.FC = () => {
   const [configModel] = store.useModel('config');
   const [, setAuth] = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
 
   useEffect(() => {
     const properties = configModel ? configModel.properties : {};
@@ -45,8 +47,8 @@ const Login: React.FC = () => {
         user: user.type === 'user',
       });
       await updateUserInfo(user);
-      const urlParams = new URL(window.location.href).searchParams;
-      let redirectUrl = urlParams.get('redirect');
+
+      let redirectUrl = searchParams.get('redirect');
       if (!redirectUrl || redirectUrl === '/login') {
         redirectUrl = '/';
       }
