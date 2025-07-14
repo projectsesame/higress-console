@@ -56,7 +56,7 @@
             "uid": "${datasource.id}"
           },
           "editorMode": "builder",
-          "expr": "{authority=~\".+\"} |= ``",
+          "expr": "{authority=~\".+\", upstream_cluster!=\"outbound|8080||higress-xxx-console.higress-xxx.svc.cluster.local\"} |= ``",
           "queryType": "range",
           "refId": "A"
         }

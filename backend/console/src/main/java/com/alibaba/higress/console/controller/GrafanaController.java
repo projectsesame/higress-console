@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.higress.console.service.DashboardService;
 
 @Controller
-@RequestMapping(value = "/grafana/**")
+@RequestMapping(value = {"/grafana/**","/apis/sesame.skoala.io/v1alpha3/higress/workspaces/{workspaceID}/clusters/{cluster}/namespaces/{namespaces}/aigateways/{gateway}/grafana/**"})
 public class GrafanaController {
 
     private DashboardService dashboardService;
