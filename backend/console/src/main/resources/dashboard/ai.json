@@ -3254,18 +3254,18 @@
           "type": "prometheus",
           "uid": "${datasource.id}"
         },
-        "definition": "label_values(envoy_server_live, higress)",
+        "definition": "label_values(envoy_server_live, kubernetes_namespace)",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "namespace",
         "options": [],
         "query": {
-          "query": "label_values(envoy_server_live, higress)",
+          "query": "label_values(envoy_server_live, kubernetes_namespace)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
-        "regex": "/(.*)-higress-gateway/",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
