@@ -73,7 +73,6 @@ export default {
           {
             name: 'menu.aiDashboard',
             path: '/ai/dashboard',
-            visiblePredicate: (configData: any) => configData && configData['dashboard.builtin'],
           },
         ],
       },
