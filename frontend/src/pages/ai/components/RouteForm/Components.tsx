@@ -23,6 +23,14 @@ const RedoOutlinedBtn = (props) => {
 // 跳转按钮
 const HistoryButton = (props) => {
   const { text = '', path = '' } = props;
+
+  const isHashMode = window.location.hash.startsWith('#/');
+  if (path.startsWith('/') && isHashMode) {
+    return (
+      <a href={`#${path}`} target="_blank">{text}</a>
+    )
+  }
+
   return (
     <a href={path} target="_blank">{text}</a>
   )
