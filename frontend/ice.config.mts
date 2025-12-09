@@ -8,6 +8,11 @@ import { fileURLToPath } from 'url';
 
 // The project config, see https://v3.ice.work/docs/guide/basic/config
 export default defineConfig(() => ({
+  publicPath: process.env.PUBLIC_PATH,
+  define: {
+    // 将构建时的 PUBLIC_PATH 注入到运行时环境变量中
+    'process.env.ICE_PUBLIC_PATH': JSON.stringify(process.env.PUBLIC_PATH),
+  },
   ssr: false,
   ssg: false,
   hash: "contenthash",

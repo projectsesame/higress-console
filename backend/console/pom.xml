@@ -19,6 +19,7 @@
 
 		<app.build.version>2.1.0</app.build.version>
 		<app.build.dev>true</app.build.dev>
+		<app.public.path>./</app.public.path>
 	</properties>
 
 	<dependencies>
@@ -133,6 +134,9 @@
 						</goals>
 						<configuration>
 							<arguments>run build</arguments>
+							<environmentVariables>
+								<PUBLIC_PATH>${app.public.path}</PUBLIC_PATH>
+							</environmentVariables>
 						</configuration>
 					</execution>
 				</executions>

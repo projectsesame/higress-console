@@ -1,23 +1,28 @@
 import { Modal } from "antd";
 import axios from "axios";
 import i18next from 'i18next';
+import { history } from 'ice';
 import { ErrorComp } from './exception';
 
+function getBaseURL() {
+  const publicPath = (process.env.ICE_PUBLIC_PATH || './').replace(/^['"]|['"]$/g, '');
+
+  return publicPath;
+}
 const request = axios.create({
   timeout: 5 * 1000,
-  baseURL: process.env.ICE_CORE_MODE === "development" ? "/api" : "",
+  baseURL: process.env.ICE_CORE_MODE === 'development'
+    ? '/api'
+    : getBaseURL(),
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 request.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers = {
-      Authorization: token,
-      ...config.headers,
-    };
+  const token = localStorage.getItem('token');
+  if (token && config.headers) {
+    config.headers.Authorization = token;
   }
   if (config.method && config.method.toUpperCase() === 'GET' && config.url) {
     config.url = `${config.url}${config.url.indexOf('?') === -1 ? '?' : '&'}ts=${Date.now()}`;
@@ -27,7 +32,7 @@ request.interceptors.request.use((config) => {
 
 request.interceptors.response.use(
   (response) => {
-    const { status, config, data } = response;
+    const { status, data } = response;
 
     // console.log("response====", response);
     const statusCategory = Math.floor(status / 100);
@@ -53,8 +58,15 @@ request.interceptors.response.use(
         }
         // Unauthorized. Jump to the login page.
         Promise.reject(error);
-        if (window.location.href.indexOf('/init') === -1 && window.location.href.indexOf('/login') === -1) {
-          window.location.href = `/login?redirect=${window.location.pathname}`;
+        const currentLocation = window.location.href;
+        if (currentLocation.indexOf('/init') === -1 && currentLocation.indexOf('/login') === -1) {
+          // 获取当前的路由路径（hash 路由模式下从 hash 中获取）
+          const currentPath = window.location.hash ? window.location.hash.slice(1) : '/';
+          // 使用 Ice.js 的 history 进行路由跳转
+          history?.push({
+            pathname: '/login',
+            search: currentPath !== '/' ? `redirect=${encodeURIComponent(currentPath)}` : '',
+          });
         }
         return;
       }
