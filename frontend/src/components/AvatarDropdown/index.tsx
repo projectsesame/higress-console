@@ -60,7 +60,7 @@ const AvatarDropdown: React.FC<AvatarDropdownProps> = ({ name, avatar }) => {
         <Avatar
           size="small"
           className={styles.avatar}
-          src={avatar || '/avatar.png'}
+          src={avatar || 'avatar.png'}
           alt="avatar"
         />
         <span>{name}</span>
